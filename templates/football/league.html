@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ league.name_uk }}{% endblock title %}
+{% block link_css %}
+<link href="{% static 'css/football/home.css' %}" rel="stylesheet">
+{% endblock link_css %}
+
+{% block content %}
+    <div class="country_content">
+        <i class="fa-regular fa-futbol"></i>
+        <a href="{% url 'football:home' %}">ФУТБОЛ</a>
+        <i class="fa-solid fa-chevron-right" style="padding: 0 10px 0 5px;"></i>
+        <img src="{{ league.country.image.url }}" height="15px" style="margin-right: 5px; margin-top: 1px;">
+        <a href="{{ league.coutry.get_absolute_url }}">{{ league.country.name_uk|upper }}</a>
+    </div>
+    <div class="league_preview" style="display: flex; align-items: flex-start; margin-bottom: 15px">
+        <img src="{{ league.image.url }}" height="70px">
+        <div class="league_text" style="margin-left: 10px; display: flex; flex-direction: column; justify-content: space-between; height: 70px;">
+            <p style="font-weight: 700; margin: 0;">{{ league.name_uk }}</p>
+            <p style="margin: 0; font-size: 12px;">2024/2025</p>
+        </div>
+    </div>
+
+    <div class="leagues_menu">
+        <a href="">Заплановані</a>
+        <a href="">Завершені</a>
+        <a href="">Таблиця</a>
+    </div>
+
+    <div class="teams_table">
+        {% for team in teams %}
+        <div class="team"  style="display:flex;">
+            <a href="{{ team.get_absolute_url }}">
+                <img src="{{ team.image.url }}" alt="" width="25">
+                <p>{{ team.name_uk }}</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block link_js %}
+<script src="{% static 'js/football/home.js' %}"></script>
+{% endblock link_js %}

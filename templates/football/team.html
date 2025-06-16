@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ team.name_uk }}{% endblock title %}
+{% block link_css %}
+<link href="{% static 'css/football/home.css' %}" rel="stylesheet">
+{% endblock link_css %}
+
+{% block content %}
+    <div class="team_way border_red" style="display:flex; align-items: center;">
+        <a href="#"><i class="fa-regular fa-futbol"></i> ФУТБОЛ</a>
+        <p><i class="fa-solid fa-chevron-right"></i></p>
+        <img src="{{ team.country.image.url }}" alt="" width="25"><p>{{ team.country.name_uk }}</p>
+        <p><i class="fa-solid fa-chevron-right"></i></p>
+        <img src="{{ team.league.image.url }}" alt="" width="25"><p>{{ team.league.name_uk}}</p>
+    </div>
+{% endblock %}

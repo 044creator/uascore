@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ country.name_uk }}{% endblock title %}
+{% block link_css %}
+<link href="{% static 'css/football/home.css' %}" rel="stylesheet">
+{% endblock link_css %}
+
+{% block content %}
+<div class="country_content">
+    <i class="fa-regular fa-futbol"></i>
+    <a href="{% url 'football:home' %}">ФУТБОЛ</a>
+    <i class="fa-solid fa-chevron-right" style="padding: 0 10px 0 5px;"></i>
+    <img src="{{ country.image.url }}" height="15px" style="margin-right: 5px; margin-top: 1px;">
+    <a href="{{ coutry.get_absolute_url }}">{{ country.name_uk|upper }}</a>
+</div>
+<div class="status_menu">
+    <button id="resultsButton">Результати</button>
+    <button id="scheduledButton">Заплановані</button>
+</div>
+
+<div class="leagues_list">
+    {% for league_info in league_with_matches %}
+    {% if league_info.matches %}
+    <div class="league_content_title">
+        <p>
+            <i class="fa-regular fa-star"></i>
+            <img src="{{ league_info.league.country.image.url }}" width="25">
+            <span style="margin-left: 10px;">{{ league_info.league.country.name_uk | upper }}:</span>
+            <a href="{{league_info.league.get_absolute_url}}">{{ league_info.league.name_uk }}</a>
+            <img src="{{ league_info.league.image.url }}" width="25">
+        </p>
+        <div class="show_matches">
+            <button class="toggle_matches_btn" data-league-id="{{ league_info.league.id }}">
+                <p style="margin-right: 5px; font-size: 16px;">показати матчі ({{ league_info.matches|length }})</p>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+        </div>
+    </div>
+    <div class="matches_container" id="matches_{{ league_info.league.id }}">
+        {% for match in league_info.matches %}
+        <div class="match">
+            <div class="match_time">
+                {% if match.status == 'Запланований' %}
+                <i class="fa-regular fa-star"></i>
+                {% endif %}
+                <p>{{ match.match_date }}</p>
+                <p>{{ match.match_time }}</p>
+            </div>
+            <div class="team_name">
+                <p>
+                    <a href=""
+                       style="{% if match.home_goals > match.away_goals %} font-weight: 700; {% endif %}">
+                        <img src="{{ match.home_team.image.url }}" width="20">{{ match.home_team }}
+                    </a>
+                </p>
+                <p>
+                    <a href=""
+                       style="{% if match.away_goals > match.home_goals %} font-weight: 700; {% endif %}">
+                        <img src="{{ match.away_team.image.url }}" width="20">{{ match.away_team }}
+                    </a>
+                </p>
+            </div>
+            <div class="goals">
+                <p style="{% if match.home_goals > match.away_goals %} font-weight: 700; {% endif %}">
+                    {{ match.home_goals }}
+                </p>
+                <p style="{% if match.away_goals > match.home_goals %} font-weight: 700; {% endif %}">
+                    {{ match.away_goals }}
+                </p>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block link_js %}
+<script src="{% static 'js/football/home.js' %}"></script>
+{% endblock link_js %}

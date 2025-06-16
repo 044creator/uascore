@@ -1,0 +1,143 @@
+button {
+
+}
+
+/* main-content */
+
+.p_title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.league_content_title {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(232, 232, 232);
+    padding: 10px 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.league_content_title a {
+    text-decoration: underline black;
+}
+
+.league_content_title .show_matches {
+    display: flex;
+    color: #454545;
+}
+
+.border_red {
+    border: 1px solid red;
+}
+
+.matches_container {
+    display: none;
+    overflow: hidden;
+    height: 0;
+    transition: height 0.5s ease-in-out;
+}
+
+.match {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 4px 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.match .match_status {
+    width: 15%;
+    text-align: center;
+    font-size: 14px;
+}
+
+.match .team_name {
+    display: block;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    margin-left: 20px;
+    padding-left: 10px;
+}
+
+.match .team_name img {
+    margin-right: 10px;
+}
+
+.match .goals {
+    margin-left: 10px;
+}
+
+.toggle_matches_btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* country */
+
+.country_content {
+    display: flex;
+    align-self: center;
+    justify-content: start;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.status_menu {
+    margin-bottom: 20px;
+}
+
+.status_menu button {
+    padding: 5px 7px;
+    border-radius: 10px;
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.active_button {
+    background-color: #FF0046;
+    color: white;
+}
+
+.match_time {
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.match_time p {
+    font-size: 14px;
+}
+
+.match_time i {
+    padding-right: 0px;
+}
+
+/* league */
+
+.leagues_menu {
+    margin: 20px -20px;
+}
+
+.leagues_menu a{
+    margin-left: 20px;
+    border-radius: 5px;
+    background-color: #eaeaea;
+    padding: 5px 10px;
+}
+
+.leagues_menu a:hover {
+    background-color: #FF0046;
+}
