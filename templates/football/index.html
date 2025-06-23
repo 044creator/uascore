@@ -25,45 +25,33 @@
 </div>
 <div class="league_content">
     {% for league_info in leagues_with_matches %}
-        {% if league_info.matches %}
+        {% if league_info.matches_by_tour %}
             <div class="league_content_title">
                 <p>
                     <i class="fa-regular fa-star"></i>
                     <img src="{{ league_info.league.country.image.url }}" width="25">
                     <span style="margin-left: 10px;">{{ league_info.league.country.name_uk | upper }}:</span>
-                    <a href="">{{ league_info.league.name_uk }}</a>
+                    <a href="{{ league_info.league.get_absolute_url }}">{{ league_info.league.name_uk }}</a>
                     <img src="{{ league_info.league.image.url }}" width="25">
                 </p>
                 <div class="show_matches">
-                    <p style="margin-right: 10px;">показати матчі ({{ league_info.matches|length }})</p>
+                    <p>показати матчі </p>
                     <button class="toggle_matches_btn" data-league-id="{{ league_info.league.id }}">
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
                 </div>
             </div>
             <div class="matches_container" id="matches_{{ league_info.league.id }}">
-                {% for match in league_info.matches %}
-                    <div class="match">
-                        <i class="fa-regular fa-star"></i>
-                        <p class="match_status">
-                        {% if match.status == 'Запланований' %}
-                            {{ match.match_time }}
-                        {% else %}
-                            Заверш.
-                        {% endif %}
-                        </p>
-                        <div class="team_name">
-                            <p><a href=""><img src="{{ match.home_team.image.url }}" width="20">{{ match.home_team }}</a></p>
-                            <p><a href=""><img src="{{ match.away_team.image.url }}" width="20">{{ match.away_team }}</a></p>
-                        </div>
-                        <div class="goals">
-                            <p>{{ match.home_goals }}</p>
-                            <p>{{ match.away_goals }}</p>
-                        </div>
-                    </div>
+                {% for tour_number, matches in league_info.matches_by_tour.items %}
+                    <div class="tour-header">Раунд {{ tour_number }}</div>
+                    {% for match in matches %}
+                        {% include 'football/includes/matches_lines.html' %}
+                    {% endfor %}
                 {% endfor %}
             </div>
         {% endif %}
+    {% empty %}
+        <p style="font-size: 18px; margin-top: 20px">Сьогодні матчів немає.</p>
     {% endfor %}
 </div>
 

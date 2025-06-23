@@ -3,7 +3,7 @@
 
 {% block title %}{{ league.name_uk }}{% endblock title %}
 {% block link_css %}
-<link href="{% static 'css/football/home.css' %}" rel="stylesheet">
+    <link href="{% static 'css/football/home.css' %}" rel="stylesheet">
 {% endblock link_css %}
 
 {% block content %}
@@ -14,30 +14,27 @@
         <img src="{{ league.country.image.url }}" height="15px" style="margin-right: 5px; margin-top: 1px;">
         <a href="{{ league.coutry.get_absolute_url }}">{{ league.country.name_uk|upper }}</a>
     </div>
-    <div class="league_preview" style="display: flex; align-items: flex-start; margin-bottom: 15px">
-        <img src="{{ league.image.url }}" height="70px">
-        <div class="league_text" style="margin-left: 10px; display: flex; flex-direction: column; justify-content: space-between; height: 70px;">
-            <p style="font-weight: 700; margin: 0;">{{ league.name_uk }}</p>
-            <p style="margin: 0; font-size: 12px;">2024/2025</p>
+    <div class="league_info">
+        <div class="league_preview" style="display: flex; align-items: flex-start; padding-bottom: 10px; border-bottom: 1px solid lightgray;">
+            <img src="{{ league.image.url }}" height="70px">
+            <div class="league_text"
+                 style="margin-left: 10px; display: flex; flex-direction: column; justify-content: space-between; height: 70px;">
+                <p style="font-weight: 700; margin: 0;">{{ league.name_uk }}</p>
+                <p style="margin: 0; font-size: 12px;">2024/2025</p>
+            </div>
+        </div>
+        <div class="leagues_menus" >
+            {% block active_button %}
+                <div class="leagues_menu">
+                    <a href="{% url 'football:league_planned' country_slug=league.country.slug league_slug=league.slug %}">Матчі</a>
+                    <a href="{% url 'football:league_finished' country_slug=league.country.slug league_slug=league.slug %}">Результати</a>
+                    <a href="{% url 'football:league_table' country_slug=league.country.slug league_slug=league.slug %}">Таблиця</a>
+                </div>
+            {% endblock %}
         </div>
     </div>
-
-    <div class="leagues_menu">
-        <a href="">Заплановані</a>
-        <a href="">Завершені</a>
-        <a href="">Таблиця</a>
-    </div>
-
-    <div class="teams_table">
-        {% for team in teams %}
-        <div class="team"  style="display:flex;">
-            <a href="{{ team.get_absolute_url }}">
-                <img src="{{ team.image.url }}" alt="" width="25">
-                <p>{{ team.name_uk }}</p>
-            </a>
-        </div>
-        {% endfor %}
-    </div>
+    {% block league_content %}
+    {% endblock %}
 {% endblock %}
 
 {% block link_js %}

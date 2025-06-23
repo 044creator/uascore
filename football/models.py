@@ -39,7 +39,7 @@ class Leagues(models.Model):
                               null=True)
 
     def get_absolute_url(self):
-        return reverse_lazy('football:league', kwargs={'country_slug': self.country.slug, 'league_slug': self.slug})
+        return reverse_lazy('football:league_planned', kwargs={'country_slug': self.country.slug, 'league_slug': self.slug})
 
     class Meta:
         verbose_name = 'Ліга'
@@ -145,6 +145,7 @@ class Matches(models.Model):
     away_goals = models.CharField(default='-', max_length=2)
     league = models.ForeignKey(Leagues, on_delete=models.CASCADE,
                                related_name='matches', default=1)
+    tour = models.IntegerField(default=1)
 
     class Meta:
         verbose_name = 'Матч'
@@ -153,3 +154,37 @@ class Matches(models.Model):
 
     def __str__(self):
         return f"{self.home_team.name_uk} vs. {self.away_team.name_uk}, {self.match_date} {self.match_time}"
+
+class Table(models.Model):
+    league = models.ForeignKey(Leagues, on_delete=models.CASCADE, related_name='tables')
+
+    class Meta:
+        verbose_name = 'Таблиця'
+        verbose_name_plural = 'Таблиці'
+
+    def __str__(self):
+        return f"Таблиця - {self.league.name_uk}"
+
+class TableLines(models.Model):
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='lines')
+    team = models.ForeignKey(Teams, on_delete=models.CASCADE)
+
+    games = models.PositiveIntegerField(default=0)
+    wins = models.PositiveIntegerField(default=0)
+    draws = models.PositiveIntegerField(default=0)
+    losses = models.PositiveIntegerField(default=0)
+
+    goals_for = models.PositiveIntegerField(default=0)
+    goals_against = models.PositiveIntegerField(default=0)
+    goal_diff = models.IntegerField(default=0)
+    points = models.PositiveIntegerField(default=0)
+
+    place = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = 'Позиція в таблиці'
+        verbose_name_plural = 'Позиції в таблицях'
+        ordering = ['id']
+
+    def __str__(self):
+        return f"{self.team.name_uk} ({self.table.league.name_uk}) – {self.points} очок"

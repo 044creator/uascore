@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Teams, Players, Countries, Leagues, News, Matches
+from .models import Teams, Players, Countries, Leagues, News, Matches, Table, TableLines
 
 
 @admin.register(Countries)
@@ -44,5 +44,35 @@ class PlayersAdmin(admin.ModelAdmin):
     list_display = ('id', 'name_uk', 'country', 'position', 'team')
     list_display_links = ('name_uk',)
 
-
 admin.site.register(News)
+
+@admin.action(description="Заповнити таблицю командами з ліги")
+def initialize_table_lines(modeladmin, request, queryset):
+    for table in queryset:
+        table.lines.all().delete()
+        place = 1
+        for team in table.league.teams.order_by('name_uk'):
+            TableLines.objects.create(
+                table=table,
+                team=team,
+                games=0,
+                wins=0,
+                draws=0,
+                losses=0,
+                goals_for=0,
+                goals_against=0,
+                goal_diff=0,
+                points=0,
+                place=place,
+            )
+            place += 1
+
+# Адмін для Table
+@admin.register(Table)
+class TableAdmin(admin.ModelAdmin):
+    list_display = ['league']
+    actions = [initialize_table_lines]   # ← додай сюди
+
+@admin.register(TableLines)
+class TableLinesAdmin(admin.ModelAdmin):
+    pass

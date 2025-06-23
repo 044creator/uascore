@@ -6,7 +6,12 @@ from . import views
 app_name = "football"
 
 urlpatterns = ([path("", views.home, name="home"),
-                path("<str:country_slug>/<str:league_slug>", views.league_preview, name="league"),
+                path("team/<str:team_slug>/planned/", views.team_planned_matches, name="team_planned"),
+                path("team/<str:team_slug>/finished/", views.team_finished_matches, name="team_finished"),
+                path("<str:country_slug>/<str:league_slug>/planned/", views.league_planned_matches, name="league_planned"),
+                path("<str:country_slug>/<str:league_slug>/finished/", views.league_finished_matches, name="league_finished"),
+                path("<str:country_slug>/<str:league_slug>/table/", views.league_table, name="league_table"),
                 path("<str:country_slug>/", views.country_preview, name="country"),
-                path("team/<str:team_slug>/preview/", views.team_preview, name="team"),
+
+
                 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))

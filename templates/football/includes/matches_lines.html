@@ -1,0 +1,31 @@
+<div class="match">
+    <div class="match_time">
+        {% if match.status == 'planned' %}
+        <i class="fa-regular fa-star"></i>
+        {% endif %}
+        <p>{{ match.match_date }}</p>
+        <p>{{ match.match_time }}</p>
+    </div>
+    <div class="team_name">
+        <p>
+            <a href="{% url 'football:team_planned' team_slug=match.home_team.slug %}"
+               style="{% if match.home_goals > match.away_goals %} font-weight: 700; {% endif %}">
+                <img src="{{ match.home_team.image.url }}" width="20">{{ match.home_team }}
+            </a>
+        </p>
+        <p>
+            <a href="{% url 'football:team_planned' team_slug=match.away_team.slug %}"
+               style="{% if match.away_goals > match.home_goals %} font-weight: 700; {% endif %}">
+                <img src="{{ match.away_team.image.url }}" width="20">{{ match.away_team }}
+            </a>
+        </p>
+    </div>
+    <div class="goals">
+        <p style="{% if match.home_goals > match.away_goals %} font-weight: 700; {% endif %}">
+            {{ match.home_goals|default:"-" }}
+        </p>
+        <p style="{% if match.away_goals > match.home_goals %} font-weight: 700; {% endif %}">
+            {{ match.away_goals|default:"-" }}
+        </p>
+    </div>
+</div>

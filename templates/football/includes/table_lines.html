@@ -1,0 +1,26 @@
+<tr style="border-bottom: 1px solid lightgray;">
+    <td>
+        {% if forloop.counter <= 4 %}
+            <span class="position cl">{{ team_lines.place }}.</span>
+        {% elif forloop.counter <= 6 %}
+            <span class="position le">{{ team_lines.place }}.</span>
+        {% elif forloop.revcounter <= 3 %}
+            <span class="position downgrade">{{ team_lines.place }}.</span>
+        {% else %}
+            <span class="position">{{ team_lines.place }}.</span>
+        {% endif %}
+    </td>
+    <td class="team-cell">
+        <a  href="#">
+            <img src="{{ team_lines.team.image.url }}" alt="{{ team_lines.team.name_uk }}" class="team-logo">
+            <span style="margin-left: 3px">{{ team_lines.team.name_uk }}</span>
+        </a>
+    </td>
+    <td>{{ team_lines.games }}</td>
+    <td>{{ team_lines.wins }}</td>
+    <td>{{ team_lines.draws }}</td>
+    <td>{{ team_lines.losses }}</td>
+    <td>{{ team_lines.goals_for }}:{{ team_lines.goals_against }}</td>
+    <td>{{ team_lines.goal_diff }}</td>
+    <td><strong>{{ team_lines.points }}</strong></td>
+</tr>

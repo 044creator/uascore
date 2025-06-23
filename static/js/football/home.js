@@ -87,12 +87,12 @@ function restoreActiveButton() {
 // Додавання події на кнопку "Завершений"
 document.getElementById("resultsButton").addEventListener("click", function() {
     setActiveButton("resultsButton"); // Додаємо активний клас
-    sendRequest('Завершений');  // Параметр для завершених подій
+    sendRequest('finished');  // Параметр для завершених подій
 });
 // Додавання події на кнопку "Запланований"
 document.getElementById("scheduledButton").addEventListener("click", function() {
     setActiveButton("scheduledButton"); // Додаємо активний клас
-    sendRequest('Запланований');  // Параметр для запланованих подій
+    sendRequest('planned');  // Параметр для запланованих подій
 });
 // Відновлення активної кнопки після перезавантаження
 restoreActiveButton();

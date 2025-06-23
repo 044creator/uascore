@@ -34,7 +34,7 @@
                 <div class="header_sports_cat">
                     <a href="#" class="category"><i class="fa-regular fa-bookmark"></i> ОБРАНЕ</a>
                     <a href="{% url 'football:home' %}" class="category category_active"><i class="fa-regular fa-futbol"></i> ФУТБОЛ</a>
-                    <a href="{% url 'football:home' %}" class="category"><i class="fa-solid fa-basketball"></i> БАСКЕТБОЛ</a>
+                    <a href="#" class="category"><i class="fa-solid fa-basketball"></i> БАСКЕТБОЛ</a>
                     <a href="#" class="category"><i class="fa-solid fa-table-tennis-paddle-ball"></i> ТЕНІС</a>
                     <a href="#" class="category"><i class="fa-solid fa-hockey-puck"></i> ХОКЕЙ</a>
                     <a href="#" class="category"><i class="fa-solid fa-volleyball"></i> ВОЛЕЙБОЛ</a>
@@ -55,7 +55,7 @@
                         <p class="p_title"><i class="fa-regular fa-clipboard"></i>ЗАКРІПЛЕНІ КРАЇНИ</p>
                         <div class="aside_border"></div>
                         <div class="aside_country">
-                            {% for country in countries %}
+                            {% for country in all_countries %}
                             <div class="country">
                                 <a href="{{ country.get_absolute_url }}">
                                     {% if country.image %}
@@ -95,7 +95,7 @@
                         <p class="p_title"><i class="fa-regular fa-newspaper"></i> ОСТАННІ НОВИНИ</p>
                         <div class="aside_border"></div>
                         <div>
-                            {% for new in news %}
+                            {% for new in all_news %}
                                 <div class="news-container" style="margin-top: 30px;">
                                     <a href="#">
                                         <div class="news-img-container">

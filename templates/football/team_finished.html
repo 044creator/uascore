@@ -1,0 +1,24 @@
+{% extends 'football/team.html' %}
+
+{% block active_button %}
+
+<div class="leagues_menu">
+    <a href="">Новини</a>
+    <a class="active_button" href="{% url 'football:team_finished' team_slug=team.slug %}">Результати</a>
+    <a href="{% url 'football:team_planned' team_slug=team.slug %}">Матчі</a>
+    <a href="">Трансфери</a>
+    <a href="">Команда</a>
+</div>
+
+{% endblock %}
+
+{% block team_content %}
+    {% for league, matches in finished_matches.items %}
+        {% include "football/includes/league_mini_lines.html" %}
+        {% for match in matches %}
+            {% include "football/includes/matches_lines.html" %}
+        {% empty %}
+            <p>Матчів поки немає.</p>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

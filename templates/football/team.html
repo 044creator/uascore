@@ -7,11 +7,27 @@
 {% endblock link_css %}
 
 {% block content %}
-    <div class="team_way border_red" style="display:flex; align-items: center;">
-        <a href="#"><i class="fa-regular fa-futbol"></i> ФУТБОЛ</a>
-        <p><i class="fa-solid fa-chevron-right"></i></p>
-        <img src="{{ team.country.image.url }}" alt="" width="25"><p>{{ team.country.name_uk }}</p>
-        <p><i class="fa-solid fa-chevron-right"></i></p>
-        <img src="{{ team.league.image.url }}" alt="" width="25"><p>{{ team.league.name_uk}}</p>
+    <div class="country_content">
+        <i class="fa-regular fa-futbol"></i>
+        <a href="{% url 'football:home' %}">ФУТБОЛ</a>
+        <i class="fa-solid fa-chevron-right" style="padding: 0 10px 0 5px;"></i>
+        <img src="{{ team.country.image.url }}" height="15px" style="margin-right: 5px; margin-top: 1px;">
+        <a href="{{ team.coutry.get_absolute_url }}">{{ team.country.name_uk|upper }}</a>
     </div>
+    <div class="league_info">
+        <div class="league_preview" style="display: flex; align-items: flex-start; padding-bottom: 10px; border-bottom: 1px solid lightgray;">
+            <img src="{{ team.image.url }}" height="70px">
+            <div class="league_text"
+                 style="margin-left: 10px; display: flex; flex-direction: column; justify-content: space-between; height: 70px;">
+                <p style="font-weight: 700; margin: 0;">{{ team.name_uk }}</p>
+                <p style="margin: 0; font-size: 12px;">2024/2025</p>
+            </div>
+        </div>
+        <div class="leagues_menus" >
+            {% block active_button %}
+            {% endblock %}
+        </div>
+    </div>
+    {% block team_content %}
+    {% endblock %}
 {% endblock %}
