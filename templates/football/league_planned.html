@@ -1,0 +1,23 @@
+{% extends 'football/league.html' %}
+
+{% block active_button %}
+<div class="leagues_menu">
+    <a class="active_button"
+       href="{% url 'football:league_planned' country_slug=league.country.slug league_slug=league.slug %}">Матчі</a>
+    <a href="{% url 'football:league_finished' country_slug=league.country.slug league_slug=league.slug %}">Результати</a>
+    <a href="{% url 'football:league_table' country_slug=league.country.slug league_slug=league.slug %}">Таблиця</a>
+</div>
+{% endblock %}
+
+{% block league_content %}
+<div class="league_content">
+    {% for tour_number, matches in matches_by_tour.items %}
+    <div class="tour-header" style="margin-top: 10px">РАУНД {{ tour_number }}</div>
+    {% for match in matches %}
+    {% include "football/includes/matches_lines.html" %}
+    {% empty %}
+    <p>Матчів поки немає.</p>
+    {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}

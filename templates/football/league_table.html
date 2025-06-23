@@ -1,0 +1,36 @@
+{% extends 'football/league.html' %}
+
+{% block active_button %}
+<div class="leagues_menu">
+    <a
+       href="{% url 'football:league_planned' country_slug=league.country.slug league_slug=league.slug %}">Матчі</a>
+    <a href="{% url 'football:league_finished' country_slug=league.country.slug league_slug=league.slug %}">Результати</a>
+    <a class="active_button" href="{% url 'football:league_table' country_slug=league.country.slug league_slug=league.slug %}">Таблиця</a>
+</div>
+{% endblock %}
+
+{% block league_content %}
+    <div class="league-table-container">
+        <table class="league-table">
+            <thead>
+                <tr style="border-bottom: 1px solid lightgray;">
+                    <th>#</th>
+                    <th>Команда</th>
+                    <th>І</th>
+                    <th>В</th>
+                    <th>Н</th>
+                    <th>П</th>
+                    <th>Г</th>
+                    <th>РГ</th>
+                    <th>ОЧ.</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team_lines in table_lines %}
+                    {% include 'football/includes/table_lines.html' %}
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
